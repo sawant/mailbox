@@ -16,7 +16,10 @@ class MailboxControllerTest extends WebTestCase
     {
         parent::setUp();
 
-        $this->client = static::createClient();
+        $this->client = static::createClient([], [
+            'PHP_AUTH_USER' => 'appuser',
+            'PHP_AUTH_PW'   => 'wV[Ho6HEz6AFboY',
+        ]);
     }
 
     /**

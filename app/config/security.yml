@@ -5,7 +5,11 @@ security:
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    appuser:
+                        password: $2y$12$w7NBxHnU06YcGeC9R.M6IujOE6IoXkD8WHPCE5X4Vuj15CRZrlT3i
+                        roles: 'ROLE_TEST'
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,10 +19,15 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+            http_basic: ~
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
+
+    access_control:
+            - { path: ^/, role: ROLE_TEST }
