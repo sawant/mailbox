@@ -38,8 +38,14 @@ class MailboxService
      *
      * @return array
      */
-    public function listAll($limit = 10, $offset = 0)
+    public function listAll($filter = [], $limit = 10, $offset = 0)
     {
-        return $this->messageRepository->findBy([], [], $limit, $offset);
+        $criteria = [];
+
+        if (!empty($filter)) {
+            $criteria = ["$filter" => true];
+        }
+
+        return $this->messageRepository->findBy($criteria, null, $limit, $offset);
     }
 }

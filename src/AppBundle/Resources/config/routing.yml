@@ -1,4 +1,3 @@
 list_messages:
-  path:     /{page}
-  defaults: { _controller: AppBundle:Mailbox:list, page: 1 }
+  path:     /
   defaults: { _controller: AppBundle:Mailbox:list }
