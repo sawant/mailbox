@@ -66,4 +66,28 @@ class MailboxControllerTest extends WebTestCase
             $this->assertArrayHasKey('archived', $data);
         }
     }
+
+    /**
+     * @test
+     */
+    public function testShowMessage()
+    {
+        $this->client->request('GET', '/api/mailbox/1');
+
+        $response = $this->client->getResponse();
+        $data     = json_decode($response->getContent(), true);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+
+        // We can test data values as well, since we know what we are importing
+        // But it's better done when we have data fixtures; so for now, just do a routine key check
+        $this->assertArrayHasKey('uid', $data);
+        $this->assertArrayHasKey('sender', $data);
+        $this->assertArrayHasKey('subject', $data);
+        $this->assertArrayHasKey('message', $data);
+        $this->assertArrayHasKey('time_sent', $data);
+        $this->assertArrayHasKey('read', $data);
+        $this->assertArrayHasKey('archived', $data);
+    }
 }

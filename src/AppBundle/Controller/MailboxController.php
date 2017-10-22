@@ -33,6 +33,21 @@ class MailboxController extends FOSRestController
     }
 
     /**
+     * @param $messageId
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function showAction($messageId)
+    {
+        /** @var MailboxService $mailboxService */
+        $mailboxService = $this->get('mailbox');
+
+        $view = $this->view($mailboxService->get($messageId));
+
+        return $this->handleView($view);
+    }
+
+    /**
      * @param $page
      *
      * @return int

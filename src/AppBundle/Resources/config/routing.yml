@@ -1,3 +1,7 @@
 list_messages:
   path:     /
   defaults: { _controller: AppBundle:Mailbox:list }
+
+show_message:
+  path:     /{messageId}
+  defaults: { _controller: AppBundle:Mailbox:show }

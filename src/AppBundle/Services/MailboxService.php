@@ -49,4 +49,14 @@ class MailboxService
 
         return $this->messageRepository->findBy($criteria, null, $limit, $offset);
     }
+
+    /**
+     * @param $messageId
+     *
+     * @return null|object
+     */
+    public function get($messageId)
+    {
+        return $this->messageRepository->find($messageId);
+    }
 }
