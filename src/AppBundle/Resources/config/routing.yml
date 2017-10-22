@@ -10,3 +10,8 @@ read_message:
   path:     /{messageId}/read
   methods:  [ PATCH ]
   defaults: { _controller: AppBundle:Mailbox:read }
+
+archive_message:
+  path:     /{messageId}/archive
+  methods:  [ PATCH ]
+  defaults: { _controller: AppBundle:Mailbox:archive }

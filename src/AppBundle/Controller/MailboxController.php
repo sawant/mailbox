@@ -51,9 +51,7 @@ class MailboxController extends FOSRestController
 
         $mailboxService->save($message);
 
-        $view = $this->view($message);
-
-        return $this->handleView($view);
+        return $this->handleView($this->view($message));
     }
 
     /**
@@ -69,6 +67,27 @@ class MailboxController extends FOSRestController
         $view = $this->view($mailboxService->get($messageId));
 
         return $this->handleView($view);
+    }
+
+    /**
+     * @param $messageId
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function archiveAction($messageId)
+    {
+        /** @var MailboxService $mailboxService */
+        $mailboxService = $this->get('mailbox');
+
+        /** @var Message $message */
+        $message = $mailboxService->get($messageId);
+        $message->setArchived(true);
+
+        $mailboxService->save($message);
+
+        return $this->handleView($this->view($message));
     }
 
     /**
