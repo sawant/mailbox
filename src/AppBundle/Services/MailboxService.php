@@ -33,6 +33,7 @@ class MailboxService
     }
 
     /**
+     * @param array $filter
      * @param int $limit
      * @param int $offset
      *

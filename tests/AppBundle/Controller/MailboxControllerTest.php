@@ -24,7 +24,7 @@ class MailboxControllerTest extends WebTestCase
      */
     public function testListMessages()
     {
-        $this->client->request('GET', '/api/mailbox');
+        $this->client->request('GET', '/api/mailbox/');
 
         $response = $this->client->getResponse();
         $data     = json_decode($response->getContent(), true);
@@ -40,5 +40,30 @@ class MailboxControllerTest extends WebTestCase
         $this->assertArrayHasKey('time_sent', $data[0]);
         $this->assertArrayHasKey('read', $data[0]);
         $this->assertArrayHasKey('archived', $data[0]);
+    }
+
+    /**
+     * @test
+     */
+    public function testListArchivedMessages()
+    {
+        $this->client->request('GET', '/api/mailbox/?filter=archived');
+
+        $response = $this->client->getResponse();
+        $data     = json_decode($response->getContent(), true);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+
+        if ($data) {
+            // Verify that result data has the correct keys
+            $this->assertArrayHasKey('uid', $data);
+            $this->assertArrayHasKey('sender', $data);
+            $this->assertArrayHasKey('subject', $data);
+            $this->assertArrayHasKey('message', $data);
+            $this->assertArrayHasKey('time_sent', $data);
+            $this->assertArrayHasKey('read', $data);
+            $this->assertArrayHasKey('archived', $data);
+        }
     }
 }
