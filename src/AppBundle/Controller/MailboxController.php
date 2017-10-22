@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Services\MailboxService;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class MailboxController
@@ -14,18 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 class MailboxController extends FOSRestController
 {
     /**
-     * @param Request $request
+     * @param $page
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction(Request $request)
+    public function listAction($page)
     {
-        $offset = $this->getOffset($request->get('page', 1));
-
         /** @var MailboxService $mailboxService */
         $mailboxService = $this->get('mailbox');
 
-        $view = $this->view($mailboxService->listAll(10, $offset));
+        $view = $this->view($mailboxService->listAll(10, $this->getOffset($page)));
 
         return $this->handleView($view);
     }
