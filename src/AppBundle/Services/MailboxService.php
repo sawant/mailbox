@@ -41,7 +41,7 @@ class MailboxService
      */
     public function listAll($filter = [], $limit = 10, $offset = 0)
     {
-        $criteria = [];
+        $criteria = ['archived' => false]; // do not show (hide) archived messages from default view, unless requested
 
         if (!empty($filter)) {
             $criteria = ["$filter" => true];
