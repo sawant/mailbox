@@ -20,8 +20,9 @@ class MailboxController extends FOSRestController
      */
     public function listAction(Request $request)
     {
-        $page   = $request->get('page', 1);
+        // Consider creating new routes for 'archived' & 'read', instead of getting them through 'filter' query string
         $filter = $request->get('filter', null);
+        $page   = $request->get('page', 1);
 
         /** @var MailboxService $mailboxService */
         $mailboxService = $this->get('mailbox');
