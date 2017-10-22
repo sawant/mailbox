@@ -57,13 +57,13 @@ class MailboxControllerTest extends WebTestCase
 
         if ($data) {
             // Verify that result data has the correct keys
-            $this->assertArrayHasKey('uid', $data);
-            $this->assertArrayHasKey('sender', $data);
-            $this->assertArrayHasKey('subject', $data);
-            $this->assertArrayHasKey('message', $data);
-            $this->assertArrayHasKey('time_sent', $data);
-            $this->assertArrayHasKey('read', $data);
-            $this->assertArrayHasKey('archived', $data);
+            $this->assertArrayHasKey('uid', $data[0]);
+            $this->assertArrayHasKey('sender', $data[0]);
+            $this->assertArrayHasKey('subject', $data[0]);
+            $this->assertArrayHasKey('message', $data[0]);
+            $this->assertArrayHasKey('time_sent', $data[0]);
+            $this->assertArrayHasKey('read', $data[0]);
+            $this->assertArrayHasKey('archived', $data[0]);
         }
     }
 
