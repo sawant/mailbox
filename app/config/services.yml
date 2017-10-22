@@ -2,3 +2,7 @@ services:
     messages.importer:
         class: AppBundle\Services\MessagesImportService
         arguments: ['@jms_serializer', "@=service('doctrine.orm.default_entity_manager').getRepository('AppBundle:Message')"]
+
+    mailbox:
+        class: AppBundle\Services\MailboxService
+        arguments: ["@=service('doctrine.orm.default_entity_manager').getRepository('AppBundle:Message')"]

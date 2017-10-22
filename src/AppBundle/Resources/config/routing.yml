@@ -1,0 +1,3 @@
+list_messages:
+  path:     /mailbox
+  defaults: { _controller: AppBundle:Mailbox:list }
