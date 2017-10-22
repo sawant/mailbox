@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Message;
 use AppBundle\Services\MailboxService;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,29 @@ class MailboxController extends FOSRestController
         $mailboxService = $this->get('mailbox');
 
         $view = $this->view($mailboxService->listAll($filter, 10, $this->getOffset($page)));
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @param $messageId
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function readAction($messageId)
+    {
+        /** @var MailboxService $mailboxService */
+        $mailboxService = $this->get('mailbox');
+
+        /** @var Message $message */
+        $message = $mailboxService->get($messageId);
+        $message->setRead(true);
+
+        $mailboxService->save($message);
+
+        $view = $this->view($message);
 
         return $this->handleView($view);
     }

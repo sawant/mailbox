@@ -5,3 +5,8 @@ list_messages:
 show_message:
   path:     /{messageId}
   defaults: { _controller: AppBundle:Mailbox:show }
+
+read_message:
+  path:     /{messageId}/read
+  methods:  [ PATCH ]
+  defaults: { _controller: AppBundle:Mailbox:read }

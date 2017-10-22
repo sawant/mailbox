@@ -59,4 +59,19 @@ class MailboxService
     {
         return $this->messageRepository->find($messageId);
     }
+
+    /**
+     * @param Message $message
+     *
+     * @return Message
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Message $message)
+    {
+        $this->messageRepository->save($message);
+        $this->messageRepository->flush();
+
+        return $message;
+    }
 }

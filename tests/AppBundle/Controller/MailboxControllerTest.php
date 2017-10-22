@@ -90,4 +90,21 @@ class MailboxControllerTest extends WebTestCase
         $this->assertArrayHasKey('read', $data);
         $this->assertArrayHasKey('archived', $data);
     }
+
+    /**
+     * @test
+     */
+    public function testReadMessage()
+    {
+        $this->client->request('PATCH', '/api/mailbox/1/read');
+
+        $response = $this->client->getResponse();
+        $data     = json_decode($response->getContent(), true);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals('application/json', $response->headers->get('Content-Type'));
+
+        // The 'read' status of the message should now be true
+        $this->assertEquals(true, $data['read']);
+    }
 }
